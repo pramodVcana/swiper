@@ -136,6 +136,7 @@ const App= () => {
             }}
             loop
             navigation
+            autoplay
             style={{
               padding: "10px",
               width: "100%",
