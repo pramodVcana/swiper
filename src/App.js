@@ -1,261 +1,178 @@
-import React,{useState, useEffect} from 'react'
-import axios from 'axios'
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
 
 
 
-const App = () => {
-  const [data, setData] = useState([])
- const [filteredData, setFilteredData] = useState([]);
- const [filters, setFilters] = useState({
-  
- });
-const fecthData = async() => {
+// Import Swiper styles
+import "swiper/css";
+import "./App.css"
+
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+import { Navigation, Pagination, Scrollbar, Autoplay, A11y } from "swiper";
+
+const App= () => {
 
 
-  try {
-    const data = await axios('https://jsonplaceholder.typicode.com/users')
-
-    console.log(data)
-
-    setData([...data.data, ...data.data, ...data.data]);
-    setFilteredData([...data.data, ...data.data,...data.data]);
-
-    
-
-  } catch (err) {
-console.log(err)
-  }
-  
+  const boostYourBrandData = [
+{
+"id": 24,
+"position": 1,
+"name": "Antony Rajkumar",
+"designation": "Founder & CEO",
+"experience": "25 years",
+"industry": "FMCG, Retail, Aviation, Auto, Tech, Telecom",
+"linkedinProfile": "https://www.linkedin.com/in/theantonystory/",
+"description": "An IIMC and ISB alumnus, Antony has led brand stories across domains like aviation to auto, tech \nto telecom, for 25 years. Having headed agency operations, he’s played the lead strategist for Ford, Coca Cola and Nissan. His urge to try out the new saw him co-found StoryWalker, a content brand for kids, before setting up StoryBoats. Dreamer, darer and doer, our Captain keeps us on our toes!",
+"profileIcon": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Antony_pp.png",
+"profileBanner": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Antony_hero_compressed.gif",
+"createdDate": "2022-11-02T10:45:45.000+00:00"
+},
+{
+"id": 22,
+"position": 2,
+"name": "Sandeep Varma ",
+"designation": "VP – Business Operations",
+"experience": "20 years",
+"industry": "Media, Film, Retail, Airlines, Real Estate",
+"linkedinProfile": "https://www.linkedin.com/in/sandeepnvarma/",
+"description": "Sandeep has worked in more industries than most. Holding two PGDs – Business Administration and Advertising Management – it’s clear that his quest for knowledge is a lifelong one. He loves a good marathon and a good book, though not necessarily at the same time. Tired of waiting for his big break as an actor in Malayalam films, he now plays our Hush Man for HushHush Hounds!",
+"profileIcon": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Sandeep.jpeg",
+"profileBanner": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/sandeep.gif",
+"createdDate": "2022-11-02T10:42:51.000+00:00"
+},
+{
+"id": 21,
+"position": 4,
+"name": "Astha Sirpaul ",
+"designation": "VP – Strategy",
+"experience": "14 years",
+"industry": "FMCG, Tech, Automobile, Non-profit/government, F&B, Pharmaceutical, Insurance",
+"linkedinProfile": "https://www.linkedin.com/in/astha-sirpaul-69983911/",
+"description": "A trained Psychologist with 14 years under her belt of guiding clients from multiple backgrounds, Astha is our Knowledge Bee in all esoteric brand-related subjects – from Social Research & Cultural Landscaping to Brand Strategy & Positioning. (She maintains that it’s all’s just common sense.) \nHer innate curiosity and clarity of thinking, make hers a mind to be mined.",
+"profileIcon": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Astha.jpeg",
+"profileBanner": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Astha.gif",
+"createdDate": "2022-11-02T10:41:05.000+00:00"
+},
+{
+"id": 20,
+"position": 5,
+"name": "Supriya Berry ",
+"designation": "Head of Design ",
+"experience": "20 years",
+"industry": "Auto, FMCG, Tech Products, Healthcare",
+"linkedinProfile": "https://www.linkedin.com/in/supriya-berry-9073861a/",
+"description": "Supriya believes, creativity is nothing if it doesn’t talk culture and induce drama – inspired preferably by Bollywood. For 20 years now, she has told visual stories for clients like Ford, Maruti, Sony, Nissin, HP and Nissan, among others. A foodie at heart, she loves to bake for friends and family (try out her spongy Chiffon Cake). She plans to be an entrepreneur who’ll open a cosy garden café someday. ",
+"profileIcon": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Supriya.jpeg",
+"profileBanner": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/supriya.gif",
+"createdDate": "2022-11-02T10:40:11.000+00:00"
+},
+{
+"id": 19,
+"position": 6,
+"name": "Jeevan George",
+"designation": "Creative Director (Digital)",
+"experience": "13+ years",
+"industry": "Aviation, F&B, Insurance, Beauty, Automobile, Fashion ",
+"linkedinProfile": "https://www.linkedin.com/in/jeevan-george",
+"description": "With a curious mind and an eye for efficiency and detail, Jeevan has gathered rich design experience in print and digital platforms for clients across Europe, SE Asia and the Middle East. He’s also worked closely with clients from varied sectors, ranging from aviation to fashion. Perhaps that’s why, his team management skills have made him a pro in explaining any topic in TED talk-sized detail!",
+"profileIcon": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Jeevan.jpeg",
+"profileBanner": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/jeevan.gif",
+"createdDate": "2022-11-02T10:39:17.000+00:00"
+},
+{
+"id": 18,
+"position": 7,
+"name": "Mitali Yadav",
+"designation": "Sr Manager – Business Development",
+"experience": "7 years",
+"industry": "Tech, AI, Pharmaceuticals, F&B",
+"linkedinProfile": "https://www.linkedin.com/in/mitali-yadav-4467b3137/",
+"description": "Mitali’s change of course from studying Microbiology in college to business expansion at work, has been an exciting journey. A pass-out of Garhwal University, she’s quite a standout in her choices. Giving her clients the ammo to position themselves as leaders, the saying ‘Life is short, don’t be lazy’ is her way to stay pumped up. She’s always up for a new business pitch – and a celebratory drink.",
+"profileIcon": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Mitali.jpeg",
+"profileBanner": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/mitali.gif",
+"createdDate": "2022-11-02T10:33:15.000+00:00"
+},
+{
+"id": 17,
+"position": 8,
+"name": "Aradhna Kohli",
+"designation": "Executive Sales Partner",
+"experience": "24+ years",
+"industry": "FMCG, Retail",
+"linkedinProfile": "https://www.linkedin.com/in/aradhna-kohli-475a4722/",
+"description": "A resilient Sales & Marketing leader with over 24 years of experience in India and Dubai, Aradhna Kohli specializes in integrated marketing solutions and strategic planning. With her splendid client servicing and corporate communication skills, she’s always ready to set the stage for a striking business pitch.",
+"profileIcon": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Aradhna_pp.jpg",
+"profileBanner": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Aradhana 1.gif",
+"createdDate": "2022-11-02T10:31:27.000+00:00"
+},
+{
+"id": 16,
+"position": 9,
+"name": "Say hello to The Crew.",
+"designation": "Multi-talented sailors who like to wear different hats.",
+"experience": "From passionate rookies to experienced masters.",
+"industry": "Hailing from the colourful lands of non-profit, retail, media, education, event management, and fintech.",
+"linkedinProfile": "https://www.linkedin.com/company/storyboats/",
+"description": "Our boat is brimming with youthful energy. That’s what keeps our passions up. We like rowing hard – for our clients and our ideas – with an ‘all-hands-on-deck’ mindset. Be it at work or in play.",
+"profileIcon": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/crew pp.jpg",
+"profileBanner": "https://storyboat-resources.s3.ap-south-1.amazonaws.com/Crew_hero.gif",
+"createdDate": "2022-11-02T10:29:57.000+00:00"
 }
-
-useEffect(() => {
-  const filtered = data.filter((item) => {
-    return (
-      (!filters.company || item.company.name === filters.company) &&
-      (!filters.name || item.name === filters.name) &&
-      (!filters.city || item.address.city === filters.city) 
-      // (!filters.from_date ||
-      //   new Date(item.from_date).getTime() >=
-      //     new Date(filters.from_date).getTime()) &&
-      // (!filters.to_date ||
-      //   new Date(item.to_date).getTime() <= new Date(filters.to_date).getTime())
-    );
-  });
-  setFilteredData(filtered);
-}, [filters]);
-
-
-const filterHandler = (e) => {
-  console.log(e.target.value)
-
-
-
-  setFilters((pre) => {
-      return {
-        ...pre,
-        [e.target.name]: e.target.value,
-      };
-    });
-  }
-  
-useEffect(() => {
-fecthData()
-},[])
-
-
+]
   return (
-    <section className="m-2">
-      <div className="space-y-3">
-        {/* Top Header */}
-        {/* <div className="flex gap-3 justify-end">
-            <div className="relative">
-              {shiftList
-                .filter((e) => e.status === "Pending")
-                .map((a) => {
-                  return (
-                    <span class="absolute right-0 -top-1 h-3 w-3">
-                      <span class="animate-ping absolute inline-flex h-4 w-4 rounded-full bg-sky-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-4 w-4 bg-[red]"></span>
-                    </span>
-                  );
-                })}
-
-              <button
-                onClick={() => {
-                  setSide1(!side1);
-                }}
-                className="text-xs w-56 2xl:text-lg bg-black text-white px-3 py-2 rounded"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalCenteredScrollable"
-              >
-                Change Shift Request
-              </button>
-            </div>
-            <button
-              onClick={() => {
-                setSide(!side);
-                setEdit(false);
-              }}
-              className="text-xs w-1/8 2xl:text-lg bg-black text-white px-3 py-2 rounded"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModalCenteredScrollable"
-            >
-              Add Shift
-            </button>
-          </div> */}
-        <div className="bg-white border-b md:space-y-0 space-y-2 border-gray-200 shadow md:flex items-center justify-between p-2 rounded">
-          <div className="">
-            <h2 className="font-semibold 2xl:text-xl">Attendance</h2>
-          </div>
-          <div className="md:flex  md:space-y-0 space-y-3 items-center md:space-x-5">
-            <div class=" ">
-              <select
-                id="grid-last-name"
-                value={filters.name}
-                name="name"
-                onChange={filterHandler}
-              >
-                <option value="">--Select name---</option>
-                <option value="">--Select All---</option>
-                {data.map((a) => {
-                  return <option value={a.name}>{a.name}</option>;
-                })}
-              </select>
-            </div>
-            <div class=" ">
-              <select
-                id="grid-last-name"
-                value={filters.city}
-                name="city"
-                onChange={filterHandler}
-              >
-                <option value="">--Select city---</option>
-                <option value="">--Select All---</option>
-                {data.map((a) => {
-                  return (
-                    <option value={a.address.city}>{a.address.city}</option>
-                  );
-                })}
-              </select>
-            </div>{" "}
-            <div class=" ">
-              <select
-                id="grid-last-name"
-                value={filters.company}
-                name="company"
-                onChange={filterHandler}
-              >
-                <option value="">--Select company---</option>
-                <option value="">--Select All---</option>
-                {data.map((a) => {
-                  return (
-                    <option value={a.company.name}>{a.company.name}</option>
-                  );
-                })}
-              </select>
-            </div>
-            <span className="flex border rounded border-[#0000001c] p-[4px] 2xl:p-[7px] px-1 bg-gray-50 items-center">
-              <input
-                placeholder="Search Here..."
-                className="placeholder:text-xs 2xl:text-lg placeholder:2xl:text-lg text-sm bg-transparent 2xl:px-3 px-1 outline-none"
-                type="text"
-                
-                id=""
-                value={filters.id}
-                name="id"
-                onChange={filterHandler}
-              />
-            </span>
-          </div>
+    <>
+    <div className="h-[230px]  " style={{ background: 'rgba(45,163,219,.6)' }}>
+        <div className="my-auto mx-[100px]  ">
+          {" "}
+          <Swiper
+            modules={[Navigation, Autoplay , Scrollbar, A11y]}
+            spaceBetween={1}
+            slidesPerView={2}
+           
+            autoplay={{
+              delay: 3000,
+            }}
+            loop
+            navigation
+            style={{
+              padding: "10px",
+              width: "100%",
+              marginRight: "0px!important",
+              marginTop: "20%",
+            
+            }}
+            breakpoints={{
+              700: {
+                width: 700,
+                spaceBetween: 6,
+                slidesPerView: 2,
+              },
+            }}
+          >
+            {boostYourBrandData.map((data) => (
+              <SwiperSlide>
+                <div
+                  transition={{ type: "tween", ease: "easeOut" }}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: { opacity: 1 },
+                  }}
+                  className="my-auto "
+                >
+                  <div className="rounded-full ml-[100px] mt-[50px]">
+                    <img className="rounded-full" src={data.profileIcon} />
+                    <p className="text-[white]">{data?.name}</p>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-        {/* Table */}
-        <div class=" flex flex-col ">
-          <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-            <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded">
-              <table class="min-w-full">
-                <thead>
-                  <tr>
-                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                      ID
-                    </th>
-                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                      Name
-                    </th>
-                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                      email
-                    </th>
-                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                      city
-                    </th>
-                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                      company
-                    </th>
-
-                    {/* <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                        Delete
-                      </th> */}
-                  </tr>
-                </thead>
-
-                <tbody class="bg-white">
-                  {filteredData?.length > 0 &&
-                    filteredData?.map((e) => {
-                      return (
-                        <tr>
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="flex items-center">
-                              <div class="text-sm font-medium leading-5 text-gray-900">
-                                {e?.id}
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="flex items-center">
-                              <div class="text-sm font-medium leading-5 text-gray-900">
-                                {e?.name}
-                              </div>
-                            </div>
-                          </td>
-                          {/* <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="text-sm leading-5 text-gray-500">
-                            {e.email}
-                            </div>
-                          </td> */}
-                          {/* <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <div class="text-sm leading-5 text-gray-500">
-                                <Moment format="DD-MM-YYYY">
-                                  {e?.to_date}
-                                </Moment>
-                              </div>
-                            </td> */}
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="text-sm leading-5 text-gray-500">
-                              {e.email}
-                            </div>
-                          </td>
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="text-sm leading-5 text-gray-500">
-                              {e.address.city}
-                            </div>
-                          </td>
-
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="text-sm leading-5 text-gray-500">
-                              {e?.company.name}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Add Shift Sidebar */}
-    </section>
+      </div> 
+    </>
   );
-}
+};
 
 export default App
